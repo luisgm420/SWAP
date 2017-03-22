@@ -1,5 +1,5 @@
 **Práctica 2**
-================
+==============
 
 En primer lugar probamos el funcionamiento de la copia de archivos por ssh.
 
