@@ -4,3 +4,7 @@
 En primer lugar probamos el funcionamiento de la copia de archivos por ssh.
 
 <img src="https://github.com/luisgm420/SWAP/blob/master/Practicas/practica2/Capturas%20de%20pantalla/2_M1.png">
+*Máquina 1*
+
+<img src="https://github.com/luisgm420/SWAP/blob/master/Practicas/practica2/Capturas%20de%20pantalla/2_M2.png">
+*Máquina 2*
