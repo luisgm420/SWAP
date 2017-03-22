@@ -16,6 +16,7 @@
 
 
 *Bibliografía:*
+---------------
 
 http://www.ibrugor.com/blog/apache-http-server-que-es-como-funciona-y-para-que-sirve/
 http://blog.desdelinux.net/nginx-una-interesante-alternativa-a-apache/
