@@ -3,22 +3,14 @@
 
 **2. Buscar frameworks y librerías para diferentes lenguajes que permitan hacer aplicaciones altamente disponibles con relativa facilidad.**
 
-- *apache:* Es un servidor web HTTP de código abierto para la creación de páginas y servicios web. Es un servidor multiplataforma, gratuito, muy robusto y que destaca por su seguridad y rendimiento.
+- *AngularJS:* El framework creado por Google tiene, con diferencia, la mayor comunidad entre los frameworks JavaScript. AngularJS se utiliza para crear aplicaciones web de una sola página (aplicaciones que constan de un solo documento HTML). A causa del patrón MVVM (Model View View Model), se pueden desarrollar aplicaciones web especializadas en la interacción con los usuarios. La renderización de la aplicación se lleva a cabo, en este caso, en el lado del cliente. El framework está basado en jQuery Lite, una variante de jQuery.
 
-- *nginx:* Es un servidor web HTTP de código abierto que también incluye servicios de correo electrónico con acceso al Internet Message Protocol (IMAP) y al servidor Post Office Protocol (POP). Además, NGINX está listo para ser utilizado como un proxy inverso. En este modo, NGINX se utiliza para equilibrar la carga entre los servidores back-end, o para proporcionar almacenamiento en caché para un servidor back-end lento.
+- *Ember.js:* Ember.js también es un framework del lado del cliente con el que se pueden crear aplicaciones web de una sola página. Al contrario de AngularJS, este se basa en el patrón MVC (Model View Controller), aunque no es la única diferencia. Otro de los puntos discordantes es que los creadores de Ember.js han incluido a la comunidad de una manera intensiva en el proceso de desarrollo del framework y que los cambios importantes realizados en el framework se discuten en dicha comunidad antes de ser ejecutados. Ember.js está concebido como un framework con el que se pueden desarrollar aplicaciones web ambiciosas, por lo que está orientado, en primer lugar, a desarrolladores que ya tienen cierta experiencia con la concepción de aplicaciones web.
 
-- *thttpd:* Es un servidor web de código libre disponible para la mayoría de las variantes de Unix. Se caracteriza por ser simple, pequeño, portátil, rápido, y seguro, ya que utiliza los requerimientos mínimos de un servidor HTTP. Esto lo hace ideal para servir grandes volúmenes de información estática.
-
-- *Cherokee:* Es un servidor web multiplataforma. Su objetivo es ser rápido y completamente funcional, sin dejar de ser liviano comparado con otros servidores web. Está escrito completamente en C. Puede usarse como un sistema embebido y soporta complementos para aumentar sus funcionalidades. Es software libre, disponible bajo la Licencia Pública General de GNU.
-
-- *node.js:* Node.js es un entorno Javascript del lado del servidor, basado en eventos. Node ejecuta javascript utilizando el motor V8, desarrollado por Google para uso de su navegador Chrome. Aprovechando el motor V8 permite a Node proporciona un entorno de ejecución del lado del servidor que compila y ejecuta javascript a velocidades increíbles. El aumento de velocidad es importante debido a que V8 compila Javascript en código de máquina nativo, en lugar de interpretarlo o ejecutarlo como bytecode. Node es de código abierto, y se ejecuta en Mac OS X, Windows y Linux.
-
+- *jQuery:* jQuery es la más utilizada de todas las librerías JavaScript. Esto se debe, entre otras razones, a que posibilita la escritura de código jQuery en cualquier tipo de navegador y que para ello existen numerosos plugins. La librería de fuente abierta está incluida en numerosos sistemas de gestión de contenidos como WordPress, Drupal o Joomla!.
 
 *Bibliografía:*
 ---------------
 
-* http://www.ibrugor.com/blog/apache-http-server-que-es-como-funciona-y-para-que-sirve/
-* http://blog.desdelinux.net/nginx-una-interesante-alternativa-a-apache/
-* https://es.wikipedia.org/wiki/Thttpd
-* https://es.wikipedia.org/wiki/Cherokee_(servidor_web)
-* http://www.netconsulting.es/blog/nodejs/
+* https://www.1and1.es/digitalguide/paginas-web/desarrollo-web/frameworks-javascript-y-librerias-populares/
+* https://medium.com/@fab_peja/express-angularjs-y-nginx-en-español-778683c70dc3#.3wl2641hy
