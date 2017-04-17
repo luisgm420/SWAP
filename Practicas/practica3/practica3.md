@@ -41,7 +41,7 @@ service nginx restart
 ```
 Por último comprobamos que todo funciona correctamente mediante la orden curl:
 
-<img src="">**
+<img src="https://github.com/luisgm420/SWAP/blob/master/Practicas/practica3/Capturas%20de%20pantalla/nginx.png">*Captura funcionamiento nginx*
 
 En segundo lugar creamos otra máquina virtual, la cual configuraremos mas tarde como un balanceador de carga *haproxy*. Para ello una vez tenemos creada nuestra máquina virtual ponemos lo siguiente para instalar *haproxy*.
 ```shell
@@ -68,4 +68,4 @@ backend servers
 ```
 Por último comprobamos que todo funciona correctamente mediante la orden curl:
 
-<img src="">**
+<img src="https://github.com/luisgm420/SWAP/blob/master/Practicas/practica3/Capturas%20de%20pantalla/haproxy.png">*Captura funcionamiento haproxy*
