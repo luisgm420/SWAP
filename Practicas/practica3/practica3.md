@@ -17,19 +17,22 @@ apt-get install nginx
 Una vez instalado *nginx* cambiamos el archivo de configuración para unsar un algoritmo *round-robin* con la misma prioridad para todos los servidores.
 ```shell
 upstream apaches {
-  server 172.16.168.130; server 172.16.168.131;
+  server 192.168.98.128; 
+  server 192.168.98.129;
 }
 
 server{
   listen 80;
   server_name balanceador;
-  access_log /var/log/nginx/balanceador.access.log; error_log /var/log/nginx/balanceador.error.log; root /var/www/;
+  access_log /var/log/nginx/balanceador.access.log; error_log /var/log/nginx/balanceador.error.log; 
+  root /var/www/;
   location / 
   {
     proxy_pass http://apaches;
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; proxy_http_version 1.1;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; 
+    proxy_http_version 1.1;
     proxy_set_header Connection ""; 
   }
 }
@@ -60,8 +63,8 @@ frontend http-in
   bind *:80
   default_backend servers
 backend servers
-  server m1 172.16.168.130:80 maxconn 32 
-  server m2 172.16.168.131:80 maxconn 32
+  server m1 192.168.98.128:80 maxconn 32 
+  server m2 192.168.98.129:80 maxconn 32
 ```
 Por último comprobamos que todo funciona correctamente mediante la orden curl:
 
