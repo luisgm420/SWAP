@@ -69,3 +69,13 @@ backend servers
 Por último comprobamos que todo funciona correctamente mediante la orden curl:
 
 <img src="https://github.com/luisgm420/SWAP/blob/master/Practicas/practica3/Capturas%20de%20pantalla/haproxy.png">*Captura funcionamiento haproxy*
+
+Ahora realizaremos un *Benchmark* con otra máquina virtual a parte a nginx y a haproxy. Nos hemos encontrado con un problema a la hora de realizar el benchmark ya que no podemos realizar la prueba para 500 de nivel de concurrencia por lo que lo hemos bajado a 50 para poder realizar la comparativa. Para ello ejecutamos la siguiente instrucción en la máquina virtual que hemos creado a parte para ello.
+```shell
+ab -n 1000000 -c 50 http://192.168.98.130/index.html
+```
+<img src="https://github.com/luisgm420/SWAP/blob/master/Practicas/practica3/Capturas%20de%20pantalla/benchmark_nginx.png">*Captura benchmark nginx*
+```shell
+ab -n 1000000 -c 50 http://192.168.98.131/index.html
+```
+<img src="https://github.com/luisgm420/SWAP/blob/master/Practicas/practica3/Capturas%20de%20pantalla/benchmark_haproxy.png">*Captura benchmark haproxy*
