@@ -2,7 +2,7 @@
 ==============
 
 En primer lugar creamos una nueva máquina virtual, la cual configuraremos mas tarde como un balanceador de carga *nginx*. Para ello una vez tenemos creada nuestra máquina virtual ponemos lo siguiente para instalar *nginx*.
-
+```shell
 cd /tmp/
 wget http://nginx.org/keys/nginx_signing.key
 apt-key add /tmp/nginx_signing.key
@@ -13,7 +13,7 @@ echo "deb-src http://nginx.org/packages/ubuntu/ lucid nginx" >> /etc/apt/sources
 
 apt-get update 
 apt-get install nginx
-
+```
 Una vez instalado *nginx* cambiamos el archivo de configuración para unsar un algoritmo *round-robin* con la misma prioridad para todos los servidores.
 
 upstream apaches {
