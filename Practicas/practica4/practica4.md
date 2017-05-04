@@ -24,7 +24,7 @@ Por último Activamos el sitio default--ssl y reiniciamos apache.
 2°. Configurar las reglas del cortafuegos con IPTABLES para asegurar el acceso alos servidores web.
 
 Para configurar el cortafuegos utilizamos el siguiente script:
-```shell
+```script
 iptables -F
 iptables -X
 iptables -Z
@@ -41,4 +41,4 @@ iptables -A OUTPUT -o eth0 -p tcp -m multiport --sports 22,80,443 -m state --sta
 ```
 Por último comprobamos que todo funciona correctamente mediante la orden curl:
 
-<img src="https://github.com/luisgm420/SWAP/blob/master/Practicas/practica3/Capturas%20de%20pantalla/haproxy.png">*Captura funcionamiento cortafuegos*
+<img src="https://github.com/luisgm420/SWAP/blob/master/Practicas/practica4/funcionamiento_cortafuegos.png">*Captura funcionamiento cortafuegos*
