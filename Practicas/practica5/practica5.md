@@ -4,8 +4,10 @@
 1°. Crear una BD con al menos una tabla y algunos datos.
 
 Para crear una base de datos introduciremos los siguientes comandos:
-```mysql
+```shell
 mysql -u root -p
+```
+```mysql
 mysql> create database contactos;
 mysql> use contactos;
 mysql> show tables;
@@ -21,18 +23,22 @@ mysql> select * from datos;
 2°. Realizar la copia de seguridad de la BD completa usando mysqldump.
 
 Antes de hacer la copia de seguridad en el archivo .SQL debemos evitar que se acceda a la BD para cambiar nada.
+```shell
+mysql -u root -p
+```
 ```mysql
-mysql -u root –p
 mysql> FLUSH TABLES WITH READ LOCK; 
 mysql> quit
 ```
 Ahora ya sí podemos hacer el mysqldump para guardar los datos.
-```mysql
+```shell
 mysqldump contactos -u root -p > /root/contactos.sql
 ```
 Ahora desbloqueamos las tablas:
+```shell
+mysql -u root -p
+```
 ```mysql
-mysql -u root –p
 mysql> UNLOCK TABLES; 
 mysql> quit
 ```
@@ -44,8 +50,10 @@ Ya podemos ir a la máquina esclavo (maquina2, secundaria) para copiar el archiv
 scp root@192.168.98.128:/root/contactos.sql /root/
 ```
 Con el archivo de copia de seguridad en el esclavo ya podemos importar la BD completa en el MySQL. Para ello, en un primer paso creamos la BD:
+```shell
+mysql -u root -p
+```
 ```mysql
-mysql -u root –p
 mysql> CREATE DATABASE ‘contactos’; 
 mysql> quit
 ```
