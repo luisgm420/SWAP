@@ -4,7 +4,7 @@
 1°. Crear una BD con al menos una tabla y algunos datos.
 
 Para crear una base de datos introduciremos los siguientes comandos:
-```shell
+```mysql
 mysql -u root -p
 mysql> create database contactos;
 mysql> use contactos;
@@ -13,7 +13,7 @@ mysql> create table datos(nombre varchar(100),tlf int);
 mysql> show tables;
 ```
 Ahora introduciremos los datos en la tabla:
-```shell
+```mysql
 mysql> insert into datos(nombre,tlf) values ("Carlos",958271883);
 mysql> select * from datos;
 ```
@@ -21,17 +21,17 @@ mysql> select * from datos;
 2°. Realizar la copia de seguridad de la BD completa usando mysqldump.
 
 Antes de hacer la copia de seguridad en el archivo .SQL debemos evitar que se acceda a la BD para cambiar nada.
-```shell
+```mysql
 mysql -u root –p
 mysql> FLUSH TABLES WITH READ LOCK; 
 mysql> quit
 ```
 Ahora ya sí podemos hacer el mysqldump para guardar los datos.
-```shell
+```mysql
 mysqldump contactos -u root -p > /root/contactos.sql
 ```
 Ahora desbloqueamos las tablas:
-```shell
+```mysql
 mysql -u root –p
 mysql> UNLOCK TABLES; 
 mysql> quit
@@ -44,7 +44,7 @@ Ya podemos ir a la máquina esclavo (maquina2, secundaria) para copiar el archiv
 scp root@192.168.98.128:/root/contactos.sql /root/
 ```
 Con el archivo de copia de seguridad en el esclavo ya podemos importar la BD completa en el MySQL. Para ello, en un primer paso creamos la BD:
-```shell
+```mysql
 mysql -u root –p
 mysql> CREATE DATABASE ‘contactos’; 
 mysql> quit
@@ -71,7 +71,7 @@ Una vez realizados dichos cambios, guardamos el documento y reiniciamos el servi
 /etc/init.d/mysql restart
 ```
 A continuación introducimos los siguientes comandos en mysql para configurar la máquina "MAESTRO":
-```shell
+```mysql
 mysql> CREATE USER esclavo IDENTIFIED BY 'esclavo';
 mysql> GRANT REPLICATION SLAVE ON *.* TO 'esclavo'@'%' IDENTIFIED BY 'esclavo';
 mysql> FLUSH PRIVILEGES;
@@ -79,7 +79,7 @@ mysql> FLUSH TABLES;
 mysql> FLUSH TABLES WITH READ LOCK;
 ```
 Por último introducimos los siguientes comandos en mysql para configurar la máquina "ESCLAVO":
-```shell
+```mysql
 mysql> CHANGE MASTER TO MASTER_HOST='192.168.98.128', MASTER_USER='esclavo', MASTER_PASSWORD='esclavo', MASTER_LOG_FILE='mysql-bin.000001', MASTER_LOG_POS=980, MASTER_PORT=3306;
 mysql> START SLAVE;
 ```
