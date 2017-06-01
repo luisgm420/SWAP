@@ -1,93 +1,49 @@
 **Práctica 6**
 ==============
 
-1°. Crear una BD con al menos una tabla y algunos datos.
+1°. Añadimos dos discos en la máquina virtual mediantes las opciones de VMware del mismo tamaño.
 
-Para crear una base de datos introduciremos los siguientes comandos:
+2° realizar la configuración de dos discos en RAID 1 bajo Ubuntu, automatizandoel montaje del dispositivo creado al inicio del sistema.
+
+Instalamos el software necesario para configurar el RAID:
 ```shell
-mysql -u root -p
-```
-```mysql
-mysql> create database contactos;
-mysql> use contactos;
-mysql> show tables;
-mysql> create table datos(nombre varchar(100),tlf int);
-mysql> show tables;
-```
-Ahora introduciremos los datos en la tabla:
-```mysql
-mysql> insert into datos(nombre,tlf) values ("Carlos",958271883);
-mysql> select * from datos;
+sudo apt-get install mdadm
 ```
 
-2°. Realizar la copia de seguridad de la BD completa usando mysqldump.
-
-Antes de hacer la copia de seguridad en el archivo .SQL debemos evitar que se acceda a la BD para cambiar nada.
+Creamos el RAID 1, usando el dispositivo /dev/md0, indicando el número de dispositivos a utilizar (2), así como su ubicación:
 ```shell
-mysql -u root -p
-```
-```mysql
-mysql> FLUSH TABLES WITH READ LOCK; 
-mysql> quit
-```
-Ahora ya sí podemos hacer el mysqldump para guardar los datos.
-```shell
-mysqldump contactos -u root -p > /root/contactos.sql
-```
-Ahora desbloqueamos las tablas:
-```shell
-mysql -u root -p
-```
-```mysql
-mysql> UNLOCK TABLES; 
-mysql> quit
+sudo mdadm -C /dev/md0 --level=raid1 --raid-devices=2 /dev/sdb /dev/sdc
 ```
 
-3°. Restaurar dicha copia en la segunda máquina (clonado manual de la BD).
-
-Ya podemos ir a la máquina esclavo (maquina2, secundaria) para copiar el archivo .SQL con todos los datos salvados desde la máquina principal (maquina1):
+Ahora le damos formato mediante el siguiente comando:
 ```shell
-scp root@192.168.98.128:/root/contactos.sql /root/
-```
-Con el archivo de copia de seguridad en el esclavo ya podemos importar la BD completa en el MySQL. Para ello, en un primer paso creamos la BD:
-```shell
-mysql -u root -p
-```
-```mysql
-mysql> CREATE DATABASE ‘contactos’; 
-mysql> quit
-```
-Y en un segundo paso restauramos los datos contenidos en la BD:
-```shell
-mysql -u root -p ejemplodb < /root/contactos.sql
+sudo mkfs /dev/md0
 ```
 
-4°. Realizar la configuración maestro-esclavo de los servidores MySQL para que la replicación de datos se realice automáticamente.
+Ahora ya podemos crear el directorio en el que se montará la unidad del RAID:
+```shell
+sudo mkdir /dat
+sudo mount /dev/md0 /dat
+```
 
-Lo primero que debemos hacer es la configuración de mysql del maestro. Para ello editamos, como root, el /etc/mysql/my.cnf. Una vez aqui, comentamos:
+Para que el sistema monte el dispositivo RAID creado al arrancar el sistema. Para ello añadimos la siguiente linea al archivo /etc/fstab:
 ```shell
-#bind-address 127.0.0.1
+UUID=3f8752eb-b137-4b6a-9456-a79f92a73115 /dat ext2 defaults 0 
 ```
-Y descomentamos:
+
+3° Simular un fallo en uno de los discos del RAID (mediante comandos con el mdadm), retirarlo “en caliente”, comprobar que se puede acceder a la información que hay almacenada en el RAID, y por último, añadirlo al conjunto y comprobar que se reconstruye correctamente.
+
+Simulación fallo en uno de los discos:
 ```shell
-log_error = /var/log/mysql/error.log
-server-id = 1
-log_bin = /var/log/mysql/bin.log
+sudo mdadm --manage --set-faulty /dev/md0 /dev/sdb
 ```
-Una vez realizados dichos cambios, guardamos el documento y reiniciamos el servicio con la siguiente instrucción:
+
+Retirar disco en caliente:
 ```shell
-/etc/init.d/mysql restart
+sudo mdadm --manage --remove /dev/md0 /dev/sdb
 ```
-A continuación introducimos los siguientes comandos en mysql para configurar la máquina "MAESTRO":
-```mysql
-mysql> CREATE USER esclavo IDENTIFIED BY 'esclavo';
-mysql> GRANT REPLICATION SLAVE ON *.* TO 'esclavo'@'%' IDENTIFIED BY 'esclavo';
-mysql> FLUSH PRIVILEGES;
-mysql> FLUSH TABLES;
-mysql> FLUSH TABLES WITH READ LOCK;
-```
-Por último introducimos los siguientes comandos en mysql para configurar la máquina "ESCLAVO":
-```mysql
-mysql> CHANGE MASTER TO MASTER_HOST='192.168.98.128', MASTER_USER='esclavo', MASTER_PASSWORD='esclavo', MASTER_LOG_FILE='mysql-bin.000001', MASTER_LOG_POS=980, MASTER_PORT=3306;
-mysql> START SLAVE;
+
+Añadimos disco en caliente:
+```shell
+sudo mdadm --manage --add /dev/md0 /dev/sdb
 ```
