@@ -48,4 +48,4 @@ Añadimos disco en caliente:
 ```shell
 sudo mdadm --manage --add /dev/md0 /dev/sdb
 ```
-<img src="https://github.com/luisgm420/SWAP/blob/master/Practicas/practica6/Capturas%20de%20pantalla/aniadir_disco.png">*Retirar disco en caliente*
+<img src="https://github.com/luisgm420/SWAP/blob/master/Practicas/practica6/Capturas%20de%20pantalla/aniadir_disco.png">*Añadir disco*
